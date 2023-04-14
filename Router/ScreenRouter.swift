@@ -34,9 +34,9 @@ class ScreenRouterFactory: RouterFactory {
         case .hero:
             HeroView()
         case .jamu:
-            JamuView()
+            JamuView(vm: JamuViewModel())
         case .gather:
-            GatherView()
+            GatherView(vm: GatherViewModel())
         case .almanac:
             AlmanacView()
         }

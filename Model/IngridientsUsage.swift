@@ -7,8 +7,8 @@
 
 import Foundation
 
-class IngridientsUsage: ObservableObject, Identifiable, Equatable{
-    static func == (lhs: IngridientsUsage, rhs: IngridientsUsage) -> Bool {
+class IngridientUsage: ObservableObject, Identifiable, Equatable{
+    static func == (lhs: IngridientUsage, rhs: IngridientUsage) -> Bool {
         lhs.id == rhs.id
     }
     let id: UUID = UUID()
@@ -21,17 +21,25 @@ class IngridientsUsage: ObservableObject, Identifiable, Equatable{
     }
 }
 
-var ingridientsU: [IngridientsUsage] = [jaheU, kunyitU, temulawakU, kayuManisU, sambilotoU, kencurU, cabeJawaU, bawangPutihU, daunKemangiU]
+class IngridientsUsage: ObservableObject{
+    @Published var ingridientsU: [IngridientUsage]
+    
+    init(){
+        self.ingridientsU = [jaheU, kunyitU, temulawakU, kayuManisU, sambilotoU, kencurU, cabeJawaU, bawangPutihU, daunKemangiU]
+    }
+}
 
-let jaheU = IngridientsUsage(ingridient: jahe, usage: 0)
-let kunyitU = IngridientsUsage(ingridient: kunyit, usage: 0)
-let temulawakU = IngridientsUsage(ingridient: temulawak, usage: 0)
-let kayuManisU = IngridientsUsage(ingridient: kayuManis, usage: 0)
-let daunSirihU = IngridientsUsage(ingridient: daunSirih, usage: 0)
-let sambilotoU = IngridientsUsage(ingridient: sambiloto, usage: 0)
-let kencurU = IngridientsUsage(ingridient: kencur, usage: 0)
-let cabeJawaU = IngridientsUsage(ingridient: cabeJawa, usage: 0)
-let bawangPutihU = IngridientsUsage(ingridient: bawangPutih, usage: 0)
-let daunKemangiU = IngridientsUsage(ingridient: daunKemangi, usage: 0)
+
+
+let jaheU = IngridientUsage(ingridient: jahe, usage: 0)
+let kunyitU = IngridientUsage(ingridient: kunyit, usage: 0)
+let temulawakU = IngridientUsage(ingridient: temulawak, usage: 0)
+let kayuManisU = IngridientUsage(ingridient: kayuManis, usage: 0)
+let daunSirihU = IngridientUsage(ingridient: daunSirih, usage: 0)
+let sambilotoU = IngridientUsage(ingridient: sambiloto, usage: 0)
+let kencurU = IngridientUsage(ingridient: kencur, usage: 0)
+let cabeJawaU = IngridientUsage(ingridient: cabeJawa, usage: 0)
+let bawangPutihU = IngridientUsage(ingridient: bawangPutih, usage: 0)
+let daunKemangiU = IngridientUsage(ingridient: daunKemangi, usage: 0)
 
 

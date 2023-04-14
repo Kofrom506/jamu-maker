@@ -7,17 +7,28 @@
 
 import Foundation
 
-class jamuReceipt: ObservableObject, Identifiable{
-//    static func == (lhs: IngridientsUsage, rhs: IngridientsUsage) -> Bool {
-//        lhs.id == rhs.id
-//    }
+class JamuReceipt: ObservableObject, Identifiable{
+    //    static func == (lhs: IngridientsUsage, rhs: IngridientsUsage) -> Bool {
+    //        lhs.id == rhs.id
+    //    }
     let id: UUID = UUID()
-    let ingridient: [Ingredient]
+    let ingridient: Ingredient
     let quantity: Int
-//    @Published var usage: Int
+    var _codes: String = ""
+    //    @Published var usage: Int
     
-    init(ingridient: Ingredient, usage: Int) {
+    init(ingridient: Ingredient, quantity: Int) {
         self.ingridient = ingridient
-        self.usage = usage
+        self.quantity = quantity
+        
     }
+    
+    public var codes: String {
+        get {
+            return String(repeating: self.ingridient.code, count: self.quantity)
+        }
+    }
+    
+    
 }
+

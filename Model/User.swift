@@ -15,7 +15,6 @@ class User: ObservableObject{
     @Published var inventoryIngridient: Dictionary<String, Int>
     @Published var inventoryJamu: Dictionary<String, Int>
     
-    
     init(name: String, health: Int = 100, level: Int = 0, inventoryIngridient: Dictionary<String, Int>, inventoryJamu: Dictionary<String, Int>) {
         self.name = name
         self.health = health

@@ -32,8 +32,6 @@ struct HomeView: View {
                     Text("Welcome \(user.name)")
                         .font(.custom("Luminari", size: 100))
                         .foregroundColor(.white)
-                    
-                    
                     Spacer()
                     PrimaryButton(title: "Brew Jamu",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
                         screenRouter.navigateTo(.jamu)

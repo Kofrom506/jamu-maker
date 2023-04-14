@@ -7,4 +7,9 @@
 
 import Foundation
 
+class GatherViewModel: ObservableObject {
+    let timerInterval = 1.0
+    @Published var ingridients_temp: [Ingredient] = ingridients
+}
+
 

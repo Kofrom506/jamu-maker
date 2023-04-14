@@ -9,17 +9,17 @@ import SwiftUI
 
 struct JamuView: View {
     
-    //    @EnvironmentObject var user: User
+//    @EnvironmentObject var user: User
+    @StateObject var myIngridients:IngridientsUsage = IngridientsUsage()
+    @StateObject var vm: JamuViewModel
+
     var user: User = User(
         name: "Evan Susanto",
         inventoryIngridient: ["Jahe": 0, "Kunyit": 0, "Temulawak": 0, "Kayu Manis": 0, "Daun Sirih": 0, "Sambiloto": 0, "Kencur": 0, "Cabe Jawa": 0, "Bawang Putih": 0, "Daun Kemangi": 0],
-        inventoryJamu: ["Kunyit Asam": 0,"Jahe": 0, "Sirih": 0,"Temulawak": 0,"Kayu Manis": 0,"Sambiloto": 0,"Cabe Jawa": 0,"Bawang Putih": 0,"Kemangi": 0,"Beras Kencur": 0,"Kunyit Madu": 0]
+        inventoryJamu: ["Kunyit Asam": 0,"Jahe": 0, "Sirih": 0,"Temulawak": 0,"Kayu Manis": 0,"Sambiloto": 0,"Cabe Jawa": 0,"Bawang Putih": 0,"Kemangi": 0,"Beras Kencur": 0,"Kunyit Madu": 0, "Zonk": 0]
     )
     
-    private let size: CGFloat = 100
     
-    @State var count: Int = 0
-    @State var water: Bool = false
     var body: some View {
         GeometryReader { geo in
             ZStack{
@@ -29,7 +29,11 @@ struct JamuView: View {
                 VStack{
                     HStack(spacing: ViewPadding.xxxlarge){
                         VStack{
-                            ForEach(ingridientsU[0...ingridientsU.count/2]) { ingridientU in
+//                            AddSubstractValue(title: kunyitU.ingridient.name, ingridientUsage: kunyitU)
+//                                .padding(.vertical, ViewPadding.small)
+                            
+                            ForEach(myIngridients.ingridientsU[0...myIngridients.ingridientsU.count/2]) { ingridientU in
+                                
                                 AddSubstractValue(title: ingridientU.ingridient.name, ingridientUsage: ingridientU)
                                     .padding(.vertical, ViewPadding.small)
                             }
@@ -39,13 +43,17 @@ struct JamuView: View {
                             .overlay(.black)
                             .frame(height: geo.size.height*1/3)
                         VStack{
-                            ForEach(ingridientsU[ingridientsU.count/2...ingridientsU.count-1]) { ingridientU in
+                            ForEach(myIngridients.ingridientsU[myIngridients.ingridientsU.count/2...myIngridients.ingridientsU.count-1]) { ingridientU in
                                 AddSubstractValue(title: ingridientU.ingridient.name, ingridientUsage: ingridientU)
                                     .padding(.vertical, ViewPadding.small)
                             }
                         }
                     }
                     Spacer()
+                  
+                    
+                   
+                    Text(vm.text)
                     HStack {
                         Image("penumbuk")
                             .resizable()
@@ -57,9 +65,26 @@ struct JamuView: View {
                             .frame(width: geo.size.width*1/4)
                             .shadow(color: Color.yellow.opacity(0.5), radius: 10)
                             .onTapGesture {
-                                print("Evan")
-                                print(ingridientsU)
-                                print(brew(ingridientsU: ingridientsU))
+                                for i in 0...myIngridients.ingridientsU.count-1 {
+                                    vm.text.append(String(repeating: myIngridients.ingridientsU[i].ingridient.code, count: myIngridients.ingridientsU[i].usage))
+                                    
+                                }
+                                for i in 0...myIngridients.ingridientsU.count-1 {
+                                    myIngridients.ingridientsU[i].usage = 0
+                                    
+                                }
+                                
+                                
+                                self.myIngridients.objectWillChange.send()
+                             
+                                if(brew(textReceipt: vm.text, jamus: jamus).name == "Zonk"){
+                                    user.inventoryJamu["Zonk"]!+=1
+                                }else{
+                                    user.inventoryJamu[brew(textReceipt: vm.text, jamus: jamus).name]!+=1
+                                }
+                                vm.text = ""
+                                print(user.inventoryJamu)
+                                
                             }
                         
                         Image("jug")
@@ -76,10 +101,19 @@ struct JamuView: View {
         }
     }
     
-    
 }
 
+
 extension JamuView{
+    func brew(textReceipt: String, jamus: [Jamu] ) -> Jamu{
+        for jamu in jamus{
+            if(textReceipt == jamu.codes){
+                return jamu
+            }
+        }
+        return Jamu(name: "Zonk", effect: 0, jamuReceipts: [])
+    }
+    
     //    func brew(ingridientsU: [IngridientsUsage]) -> String {
     //        let aa = ingridientsU.filter { ingridient in
     //            return ingridient.usage>0
@@ -132,7 +166,7 @@ extension JamuView{
 
 struct JamuView_Previews: PreviewProvider {
     static var previews: some View {
-        JamuView()
+        JamuView(vm:JamuViewModel())
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

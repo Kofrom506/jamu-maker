@@ -59,6 +59,6 @@ struct JamuDetailView: View {
 
 struct JamuDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        JamuDetailView(jamu: jamuJahe)
+        JamuDetailView(jamu: jamuKunyitAsam)
     }
 }

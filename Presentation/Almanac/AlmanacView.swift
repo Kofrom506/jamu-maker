@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct AlmanacView: View {
-    
     var body: some View {
-        
         GeometryReader { geo in
             VStack {
                 Spacer()

@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct AddSubstractValue: View {
-    @ObservedObject private var ingridientUsage: IngridientsUsage
+    @ObservedObject private var ingridientUsage: IngridientUsage
+    
     private let title: String
     private let text: String
     
-    init(title: String, withConcat: Bool = false, text: String = "", ingridientUsage: IngridientsUsage){
+    init(title: String, withConcat: Bool = false, text: String = "", ingridientUsage: IngridientUsage){
         self.ingridientUsage = ingridientUsage
         self.title = title
         self.text = text

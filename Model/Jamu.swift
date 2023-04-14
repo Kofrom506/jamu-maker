@@ -8,15 +8,33 @@
 import Foundation
 
 
-struct Jamu: Hashable, Identifiable{
+struct Jamu: Hashable, Identifiable, Equatable{
     var id = UUID()
     var name: String
     var imageName: String = ""
     var effect: Int
-    var jamuReceipt: Dictionary<String, Int>
+    var jamuReceipts: [JamuReceipt]
+    
+    static func == (lhs: Jamu, rhs: Jamu) -> Bool {
+        lhs.id == rhs.id
+    }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+    
+    var codes: String {
+        get {
+            var codes: String = ""
+            var jamuReceiptSorted = self.jamuReceipts
+            for item in jamuReceiptSorted{
+                codes.append(item.codes)
+            }
+            return codes
+        }
+        set{
+            
+        }
     }
 }
 
@@ -24,20 +42,22 @@ struct Jamu: Hashable, Identifiable{
 
 var jamus: [Jamu] = [jamuKunyitAsam
                      
-//                     jamuJahe,jamuTemulawak,jamuKayuManis,jamuSirih,jamuSambiloto,jamuCabeJawa,jamuBawangPutih,jamuKemangi,jamuBerasKencur,jamuKunyitMadu
+                     //                     jamuJahe,jamuTemulawak,jamuKayuManis,jamuSirih,jamuSambiloto,jamuCabeJawa,jamuBawangPutih,jamuKemangi,jamuBerasKencur,jamuKunyitMadu
 ]
-let jamuKunyitAsam = Jamu(name: "Kunyit Asam", effect: 20, jamuReceipt: ["Kunyit": 2, "Temulawak": 1])
-//let jamuJahe = Jamu(name: "Jahe", ingridients: [jahe], effect: 10)
-//let jamuTemulawak = Jamu(name: "Temulawak", ingridients: [temulawak], effect: 10)
-//let jamuKayuManis = Jamu(name: "Kayu Manis", ingridients: [kayuManis],effect: 10)
-//let jamuSirih = Jamu(name: "Sirih", ingridients: [daunSirih],effect: 10)
-//let jamuSambiloto = Jamu(name: "Sambiloto", ingridients: [sambiloto],effect: 10)
-//let jamuCabeJawa = Jamu(name: "Cabe Jawa", ingridients: [cabeJawa],effect: 10)
-//let jamuBawangPutih = Jamu(name: "Bawang Putih", ingridients: [bawangPutih],effect: 10)
-//let jamuKemangi = Jamu(name: "Kemangi", ingridients: [daunKemangi],effect: 10)
-//
-//let jamuBerasKencur = Jamu(name: "Kemangi", ingridients: [kencur],effect: 10)
-//let jamuKunyitMadu = Jamu(name: "Kunyit Madu", ingridients: [kunyit],effect: 10)
+let jamuKunyitAsam = Jamu(name: "Kunyit Asam", effect: 20, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+
+
+let jamuJahe = Jamu(name: "Jahe", effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+let jamuTemulawak = Jamu(name: "Temulawak", effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+let jamuKayuManis = Jamu(name: "Kayu Manis",effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+let jamuSirih = Jamu(name: "Sirih",effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+let jamuSambiloto = Jamu(name: "Sambiloto",effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+let jamuCabeJawa = Jamu(name: "Cabe Jawa",effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+let jamuBawangPutih = Jamu(name: "Bawang Putih",effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+let jamuKemangi = Jamu(name: "Kemangi",effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+
+let jamuBerasKencur = Jamu(name: "Kemangi",effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
+let jamuKunyitMadu = Jamu(name: "Kunyit Madu",effect: 10, jamuReceipts: [JamuReceipt(ingridient: kunyit, quantity: 1)])
 
 // Yg kurang : gula merah, madu, asam jawa
 //let kayuManis = Ingredients(name: "Kayu Manis", imageName: "kayuManis")
