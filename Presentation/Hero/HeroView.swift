@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HeroView: View {
     @State var showImage: Bool = true
-    
     //    @EnvironmentObject var user: User
     var user: User = User(
         name: "Evan Susanto",
